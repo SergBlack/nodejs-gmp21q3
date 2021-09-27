@@ -1,0 +1,19 @@
+{
+  "name": "nodejs-gmp2021q3",
+  "version": "1.0.0",
+  "description": "NodeJS application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SergBlack/nodejs-gmp21q3.git"
+  },
+  "author": "Sergey Osipchuk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SergBlack/nodejs-gmp21q3/issues"
+  },
+  "homepage": "https://github.com/SergBlack/nodejs-gmp21q3#readme",
+}

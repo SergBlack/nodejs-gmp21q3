@@ -7,7 +7,7 @@ process.stdin.on('data', (data) => {
 
   if (inputData === 'q') {
     console.log('Application has been stopped');
-    process.exit();
+    process.exit(0);
   }
 
   const outputData = inputData.split('').reverse().join('') + '\n';

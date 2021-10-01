@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint ./*.js --fix",
-    "server": "nodemon ./app.js localhost 8000",
-    "task1_1": "nodemon modules/module_1/task1_1.js",
-    "task1_2": "nodemon modules/module_1/task1_2.js"
+    "server": "nodemon app.mjs localhost 8000",
+    "task1_1": "nodemon modules/module_1/task1_1.mjs",
+    "task1_2": "nodemon modules/module_1/task1_2.mjs"
   },
   "repository": {
     "type": "git",

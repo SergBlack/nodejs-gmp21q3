@@ -31,7 +31,7 @@ readStream.pipe(csv()).pipe(writeStreamFile1);
 // using readline to write line by line
 const readlineInterface = readline.createInterface({
   input: readStream.pipe(csv()),
-  output: writeStreamFile2
+  output: writeStreamFile2,
 });
 
 readlineInterface.on('line', writeLine).on('close', logSuccess);
@@ -40,7 +40,7 @@ readlineInterface.on('line', writeLine).on('close', logSuccess);
 async function writeLineByLine() {
   const readlineInterface2 = readline.createInterface({
     input: readStream.pipe(csv()),
-    output: writeStreamFile3
+    output: writeStreamFile3,
   });
 
   // eslint-disable-next-line no-restricted-syntax

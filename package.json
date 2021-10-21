@@ -11,7 +11,12 @@
     "task1_2": "nodemon modules/module_1/task1_2.mjs",
     "start": "npm run build && node build/index.js",
     "start:dev": "nodemon --ext js,ts --watch src/ --ignore build/ src/index.ts ",
-    "build": "rimraf ./build && tsc",
+    "build-compile": "rimraf ./build && npx babel src --extensions .ts --out-dir build",
+    "build-types": "tsc",
+    "build": "concurrently \"npm:build-types\" \"npm:build-compile\"",
+    "watch-compile": "rimraf ./build && npx babel src --extensions .ts --out-dir build --watch",
+    "watch-types": "tsc --watch",
+    "start:watch": "concurrently \"npm:watch-types\" \"npm:watch-compile\"",
     "prepare": "husky install"
   },
   "repository": {
@@ -25,9 +30,14 @@
   },
   "homepage": "https://github.com/SergBlack/nodejs-gmp21q3#readme",
   "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-typescript": "^7.15.0",
     "@types/node": "^16.11.1",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
+    "concurrently": "^6.3.0",
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",

@@ -1,9 +1,12 @@
-const helloText = 'Hello';
-const tsText = 'Typescript!!';
+import express from 'express';
 
-const print = (text: string) => {
-  console.log(text);
-};
+const app = express();
+const PORT = 3010;
 
-print(helloText);
-print(tsText);
+app.get('/', (req, res) => {
+  res.send('Hello user!');
+});
+
+app.listen(PORT, () => {
+  console.log(`App listening at http://localhost:${PORT}`);
+});

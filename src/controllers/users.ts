@@ -2,17 +2,28 @@ import { v4 as uuidv4 } from 'uuid';
 import { Request, Response } from 'express';
 
 import { User } from '../types';
+import { compare } from '../helpers/compare';
 
 let users: User[] = [];
 
 export const getUsers = (req: Request, res: Response) => {
-  const allUsers = users.filter(({ isDeleted }) => !isDeleted);
+  const LIMIT = 5;
+
+  const allUsers = users
+    .sort((firstUser, secondUser) => compare(firstUser.login, secondUser.login))
+    .filter((user, index) => !user.isDeleted && index < LIMIT);
 
   res.json(allUsers);
 };
 
 export const createUser = (req: Request, res: Response) => {
   const { login, password, age } = req.body;
+
+  // add validation
+  if (!login || !password || !age) {
+    return res.status(400).json({ error: 'Request error' });
+  }
+
   const userExists = users.find(user => user.login === login);
 
   if (userExists) {

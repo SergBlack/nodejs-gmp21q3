@@ -1,8 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Request, Response } from 'express';
+import { ValidatedRequest } from 'express-joi-validation';
 
 import { User } from '../types';
 import { compare } from '../helpers/compare';
+import { UserRequestBodySchema } from '../middlewares/userValidator';
 
 let users: User[] = [];
 
@@ -16,13 +18,8 @@ export const getUsers = (req: Request, res: Response) => {
   res.json(allUsers);
 };
 
-export const createUser = (req: Request, res: Response) => {
+export const createUser = (req: ValidatedRequest<UserRequestBodySchema>, res: Response) => {
   const { login, password, age } = req.body;
-
-  // add validation
-  if (!login || !password || !age) {
-    return res.status(400).json({ error: 'Request error' });
-  }
 
   const userExists = users.find(user => user.login === login);
 
@@ -76,7 +73,7 @@ export const deleteUser = (req: Request, res: Response) => {
   return res.status(400).json({ error: 'User was not found in the database' });
 };
 
-export const updateUser = (req: Request, res: Response) => {
+export const updateUser = (req: ValidatedRequest<UserRequestBodySchema>, res: Response) => {
   const { id } = req.params;
   let isSuccess = false;
 

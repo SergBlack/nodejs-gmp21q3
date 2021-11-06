@@ -2,11 +2,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { Request, Response } from 'express';
 import { ValidatedRequest } from 'express-joi-validation';
 
-import { User } from '../types';
+import { IUser } from '../types';
 import { compare } from '../helpers/compare';
 import { UserRequestBodySchema } from '../middlewares/userValidator';
 
-let users: User[] = [];
+let users: IUser[] = [];
 
 export const getUsers = (req: Request, res: Response) => {
   const LIMIT = 5;
@@ -27,7 +27,7 @@ export const createUser = (req: ValidatedRequest<UserRequestBodySchema>, res: Re
     return res.status(400).json({ error: 'User already exists' });
   }
 
-  const newUser: User = {
+  const newUser: IUser = {
     login,
     password,
     age,

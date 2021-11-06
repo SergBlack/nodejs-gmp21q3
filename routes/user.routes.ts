@@ -6,7 +6,7 @@ import {
   getUser,
   deleteUser,
   updateUser,
-} from '../controllers/users';
+} from '../controllers/user.controller';
 import { userSchema, userValidator } from '../middlewares/userValidator';
 
 const router = express.Router();

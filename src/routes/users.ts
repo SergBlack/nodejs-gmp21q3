@@ -1,4 +1,5 @@
 import express from 'express';
+
 import {
   getUsers,
   createUser,
@@ -6,13 +7,17 @@ import {
   deleteUser,
   updateUser,
 } from '../controllers/users';
+import { userSchema, userValidator } from '../middlewares/userValidator';
 
-const routes = express.Router();
+const router = express.Router();
 
-routes.get('/', getUsers);
-routes.post('/', createUser);
-routes.get('/:id', getUser);
-routes.put('/:id', updateUser);
-routes.delete('/:id', deleteUser);
+router.route('/')
+  .get(getUsers)
+  .post(userValidator.body(userSchema), createUser);
 
-export default routes;
+router.route('/:id')
+  .get(getUser)
+  .put(userValidator.body(userSchema), updateUser)
+  .delete(deleteUser);
+
+export default router;

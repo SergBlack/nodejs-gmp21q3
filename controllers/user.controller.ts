@@ -1,94 +1,77 @@
-import { v4 as uuidv4 } from 'uuid';
 import { Request, Response } from 'express';
 import { ValidatedRequest } from 'express-joi-validation';
 
-import { IUser } from '../types';
-import { compare } from '../helpers/compare';
-import { UserRequestBodySchema } from '../middlewares/userValidator';
+import { db } from '../models';
+import { UserRequestBodySchema, UserRequestParamsSchema } from '../api/middlewares/userValidator';
+import UserService from '../services/user';
 
-let users: IUser[] = [];
+const userService = new UserService(db.User);
 
-export const getUsers = (req: Request, res: Response) => {
+export const getUsers = async (req: Request, res: Response) => {
   const LIMIT = 5;
 
-  const allUsers = users
-    .sort((firstUser, secondUser) => compare(firstUser.login, secondUser.login))
-    .filter((user, index) => !user.isDeleted && index < LIMIT);
+  const allUsers = await userService.getAll(LIMIT);
 
   res.json(allUsers);
 };
 
-export const createUser = (req: ValidatedRequest<UserRequestBodySchema>, res: Response) => {
+export const createUser = async (req: ValidatedRequest<UserRequestBodySchema>, res: Response) => {
   const { login, password, age } = req.body;
 
-  const userExists = users.find(user => user.login === login);
+  try {
+    const newUser = await userService.create(login, password, age);
 
-  if (userExists) {
+    return res.json(newUser);
+  } catch (e) {
     return res.status(400).json({ error: 'User already exists' });
   }
-
-  const newUser: IUser = {
-    login,
-    password,
-    age,
-    id: uuidv4(),
-    createdAt: new Date().toISOString(),
-    isDeleted: false,
-  };
-
-  users = [...users, newUser];
-
-  return res.json(newUser);
 };
 
-export const getUser = (req: Request, res: Response) => {
+export const getUser = async (req: ValidatedRequest<UserRequestParamsSchema>, res: Response) => {
   const { id } = req.params;
 
-  const user = users.find(u => u.id === id);
+  try {
+    const user = await userService.findById(id);
 
-  if (user && !user.isDeleted) {
-    return res.send(user);
-  }
-
-  return res.status(400).json({ error: 'User was not found in the database' });
-};
-
-export const deleteUser = (req: Request, res: Response) => {
-  const { id } = req.params;
-  let isSuccess = false;
-
-  users = users.map(user => {
-    if (user.id === id) {
-      isSuccess = true;
-      return { ...user, isDeleted: true };
+    if (user) {
+      return res.json(user);
     }
 
-    return user;
-  });
-
-  if (isSuccess) {
-    return res.json({ message: 'User has been deleted' });
+    return res.status(400).json({ error: 'User was not found in the database' });
+  } catch (e) {
+    return res.status(500).json({ error: 'Server error' });
   }
-
-  return res.status(400).json({ error: 'User was not found in the database' });
 };
 
-export const updateUser = (req: ValidatedRequest<UserRequestBodySchema>, res: Response) => {
+export const deleteUser = async (req: ValidatedRequest<UserRequestParamsSchema>, res: Response) => {
   const { id } = req.params;
-  let isSuccess = false;
 
-  users = users.map(user => {
-    if (user.id === id) {
-      isSuccess = true;
-      return { ...user, ...req.body };
+  try {
+    const user = await userService.delete(id);
+
+    if (!user) {
+      return res.status(400).json({ error: 'User was not found in the database' });
     }
 
-    return user;
-  });
-
-  if (isSuccess) {
-    return res.json({ message: 'User has been updated' });
+    return res.json({ message: 'User deleted successfully' });
+  } catch (e) {
+    return res.status(500).json({ error: 'Server error' });
   }
+};
 
-  return res.status(400).json({ error: 'User was not found in the database' });
+export const updateUser = async (req: ValidatedRequest<UserRequestBodySchema>, res: Response) => {
+  const { id } = req.params;
+  const { password, age } = req.body;
+
+  try {
+    const user = await userService.update(id, password, age);
+
+    if (!user) {
+      return res.status(400).json({ error: 'User was not found in the database' });
+    }
+
+    return res.json({ message: 'User updated successfully' });
+  } catch (e) {
+    return res.status(500).json({ error: 'Server error' });
+  }
 };

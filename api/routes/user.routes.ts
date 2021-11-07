@@ -6,8 +6,8 @@ import {
   getUser,
   deleteUser,
   updateUser,
-} from '../controllers/user.controller';
-import { userSchema, userValidator } from '../middlewares/userValidator';
+} from '../../controllers/user.controller';
+import { userIdSchema, userSchema, userValidator } from '../middlewares/userValidator';
 
 const router = express.Router();
 
@@ -16,8 +16,8 @@ router.route('/')
   .post(userValidator.body(userSchema), createUser);
 
 router.route('/:id')
-  .get(getUser)
+  .get(userValidator.params(userIdSchema), getUser)
   .put(userValidator.body(userSchema), updateUser)
-  .delete(deleteUser);
+  .delete(userValidator.params(userIdSchema), deleteUser);
 
 export default router;

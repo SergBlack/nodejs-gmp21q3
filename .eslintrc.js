@@ -48,6 +48,7 @@ module.exports = {
         quotes: ['error', 'single'],
         'comma-dangle': ['error', 'always-multiline'],
         semi: ['error', 'always'],
+        '@typescript-eslint/no-var-requires': 'off',
       },
     },
   ],

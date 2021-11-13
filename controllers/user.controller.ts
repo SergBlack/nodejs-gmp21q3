@@ -4,13 +4,13 @@ import { ValidatedRequest } from 'express-joi-validation';
 import { db } from '../models';
 import { UserRequestBodySchema, UserRequestParamsSchema } from '../api/middlewares/userValidator';
 import UserService from '../services/user';
-import { RequestQueriesType } from '../types';
+import { RequestQueryType } from '../types';
 
 const userService = new UserService(db.User);
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
-    const allUsers = await userService.getAll(req.query as RequestQueriesType);
+    const allUsers = await userService.getAll(req.query as RequestQueryType);
 
     return res.json(allUsers);
   } catch (e) {
@@ -44,33 +44,33 @@ export const getUser = async (req: ValidatedRequest<UserRequestParamsSchema>, re
   }
 };
 
-export const deleteUser = async (req: ValidatedRequest<UserRequestParamsSchema>, res: Response) => {
-  const { id } = req.params;
-
-  try {
-    const user = await userService.delete(id);
-
-    if (!user) {
-      return res.status(400).json({ error: 'User was not found in the database' });
-    }
-
-    return res.json({ message: 'User deleted successfully' });
-  } catch (e) {
-    return res.status(500).json({ error: 'Server error' });
-  }
-};
-
 export const updateUser = async (req: ValidatedRequest<UserRequestBodySchema>, res: Response) => {
   const { id } = req.params;
 
   try {
     const user = await userService.update(id, req.body);
 
-    if (!user) {
-      return res.status(400).json({ error: 'User was not found in the database' });
+    if (user) {
+      return res.json(user);
     }
 
-    return res.json({ message: 'User updated successfully' });
+    return res.status(400).json({ error: 'User was not found in the database' });
+  } catch (e) {
+    return res.status(500).json({ error: 'Server error' });
+  }
+};
+
+export const deleteUser = async (req: ValidatedRequest<UserRequestParamsSchema>, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const user = await userService.delete(id);
+
+    if (user) {
+      return res.json({ message: 'User deleted successfully' });
+    }
+
+    return res.status(400).json({ error: 'User was not found in the database' });
   } catch (e) {
     return res.status(500).json({ error: 'Server error' });
   }

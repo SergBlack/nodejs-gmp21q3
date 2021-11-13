@@ -4,7 +4,7 @@ export type RequestBodyType = {
   age: number;
 }
 
-export type RequestQueriesType = {
+export type RequestQueryType = {
   limit?: string;
   orderBy?: string;
   sortOrder?: string;

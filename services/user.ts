@@ -1,5 +1,5 @@
 import { IUser } from '../interfaces/user';
-import { RequestBodyType, RequestQueriesType } from '../types';
+import { RequestBodyType, RequestQueryType } from '../types';
 
 export default class UserService {
   private userModel;
@@ -8,7 +8,7 @@ export default class UserService {
     this.userModel = userModel;
   }
 
-  getAll({ limit, orderBy, sortOrder }: RequestQueriesType) {
+  getAll({ limit, orderBy, sortOrder }: RequestQueryType) {
     let queries = {};
 
     if (limit) {
@@ -42,7 +42,7 @@ export default class UserService {
 
   create(body: RequestBodyType) {
     try {
-      return this.userModel.create({ ...body });
+      return this.userModel.create(body);
     } catch (e) {
       console.error(e);
       throw e;
@@ -79,21 +79,21 @@ export default class UserService {
   }
 
   async update(userId: string, { password, age }: Partial<RequestBodyType>) {
+    let props = {};
+
+    if (password) {
+      props = { password };
+    }
+
+    if (age) {
+      props = { ...props, age };
+    }
+
     try {
-      let props = {};
-
-      if (password) {
-        props = { ...props, password };
-      }
-
-      if (age) {
-        props = { ...props, age };
-      }
-
       const user = await this.findById(userId);
 
       if (user) {
-        this.userModel.update({ ...props });
+        user.update(props);
       }
 
       return user;

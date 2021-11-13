@@ -1,9 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 
-import usersRouter from './api/routes/user.routes';
-import { db } from './models';
-import { users } from './seeders/users';
+import usersRouter from './src/api/routes/user.routes';
+import { db } from './src/models';
+import { users } from './src/seeders/users';
 
 const app = express();
 const PORT = process.env.PORT || 3000;

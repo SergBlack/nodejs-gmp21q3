@@ -1,4 +1,5 @@
-import { IUser } from '../types';
+import { IUser } from '../interfaces/user';
+import { RequestBodyType, RequestQueriesType } from '../types';
 
 export default class UserService {
   private userModel;
@@ -7,16 +8,29 @@ export default class UserService {
     this.userModel = userModel;
   }
 
-  getAll(limit: number) {
+  getAll({ limit, orderBy, sortOrder }: RequestQueriesType) {
+    let queries = {};
+
+    if (limit) {
+      queries = { limit: Number(limit) };
+    }
+
+    if (orderBy) {
+      const orderGroup = [orderBy];
+
+      if (sortOrder) {
+        orderGroup.push(sortOrder);
+      }
+
+      queries = { ...queries, order: [orderGroup] };
+    }
+
     try {
       const data: IUser[] = this.userModel.findAll({
         where: {
           isDeleted: false,
         },
-        limit,
-        order: [
-          ['login', 'ASC'],
-        ],
+        ...queries,
       });
 
       return data;
@@ -26,13 +40,9 @@ export default class UserService {
     }
   }
 
-  create(login: string, password: string, age: number) {
+  create(body: RequestBodyType) {
     try {
-      return this.userModel.create({
-        login,
-        password,
-        age,
-      });
+      return this.userModel.create({ ...body });
     } catch (e) {
       console.error(e);
       throw e;
@@ -58,15 +68,7 @@ export default class UserService {
       const user = await this.findById(userId);
 
       if (user) {
-        user.update(
-          { isDeleted: true },
-          {
-            where: {
-              id: userId,
-              isDeleted: false,
-            },
-          },
-        );
+        user.update({ isDeleted: true });
       }
 
       return user;
@@ -76,22 +78,22 @@ export default class UserService {
     }
   }
 
-  async update(userId: string, password?: string, age?: number) {
+  async update(userId: string, { password, age }: Partial<RequestBodyType>) {
     try {
+      let props = {};
+
+      if (password) {
+        props = { ...props, password };
+      }
+
+      if (age) {
+        props = { ...props, age };
+      }
+
       const user = await this.findById(userId);
 
       if (user) {
-        this.userModel.update(
-          {
-            password,
-            age,
-          },
-          {
-            where: {
-              id: userId,
-            },
-          },
-        );
+        this.userModel.update({ ...props });
       }
 
       return user;

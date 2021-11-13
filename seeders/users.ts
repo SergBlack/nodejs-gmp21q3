@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IUser } from '../types';
+import { IUser } from '../interfaces/user';
 
 export const users: IUser[] = [
   {

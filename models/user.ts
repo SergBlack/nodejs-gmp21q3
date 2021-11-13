@@ -1,5 +1,5 @@
 import { Model } from 'sequelize';
-import { IUser } from '../types';
+import { IUser } from '../interfaces/user';
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class User extends Model<IUser> implements IUser {

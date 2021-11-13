@@ -1,8 +1,11 @@
-export interface IUser {
-  id: string;
+export type RequestBodyType = {
   login: string;
   password: string;
   age: number;
-  isDeleted: boolean;
-  createdAt: string;
+}
+
+export type RequestQueriesType = {
+  limit?: string;
+  orderBy?: string;
+  sortOrder?: string;
 }

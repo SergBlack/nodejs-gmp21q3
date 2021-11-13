@@ -4,22 +4,23 @@ import { ValidatedRequest } from 'express-joi-validation';
 import { db } from '../models';
 import { UserRequestBodySchema, UserRequestParamsSchema } from '../api/middlewares/userValidator';
 import UserService from '../services/user';
+import { RequestQueriesType } from '../types';
 
 const userService = new UserService(db.User);
 
 export const getUsers = async (req: Request, res: Response) => {
-  const LIMIT = 5;
+  try {
+    const allUsers = await userService.getAll(req.query as RequestQueriesType);
 
-  const allUsers = await userService.getAll(LIMIT);
-
-  res.json(allUsers);
+    return res.json(allUsers);
+  } catch (e) {
+    return res.status(400).json({ error: 'Bad request' });
+  }
 };
 
 export const createUser = async (req: ValidatedRequest<UserRequestBodySchema>, res: Response) => {
-  const { login, password, age } = req.body;
-
   try {
-    const newUser = await userService.create(login, password, age);
+    const newUser = await userService.create(req.body);
 
     return res.json(newUser);
   } catch (e) {
@@ -61,10 +62,9 @@ export const deleteUser = async (req: ValidatedRequest<UserRequestParamsSchema>,
 
 export const updateUser = async (req: ValidatedRequest<UserRequestBodySchema>, res: Response) => {
   const { id } = req.params;
-  const { password, age } = req.body;
 
   try {
-    const user = await userService.update(id, password, age);
+    const user = await userService.update(id, req.body);
 
     if (!user) {
       return res.status(400).json({ error: 'User was not found in the database' });

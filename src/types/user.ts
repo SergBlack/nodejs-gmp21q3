@@ -1,10 +1,10 @@
-export type RequestBodyType = {
+export type UserRequestBodyType = {
   login: string;
   password: string;
   age: number;
 }
 
-export type RequestQueryType = {
+export type UserRequestQueryType = {
   limit?: string;
   orderBy?: string;
   sortOrder?: string;

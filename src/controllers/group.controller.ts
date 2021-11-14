@@ -5,7 +5,6 @@ import { db } from '../models';
 import { GroupRequestBodySchema, GroupRequestParamsSchema } from '../api/middlewares/groupValidator';
 import GroupService from '../services/group';
 import { GroupRequestQueryType } from '../types/group';
-import { secureHeapUsed } from 'crypto';
 
 const groupService = new GroupService(db.Group);
 

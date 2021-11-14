@@ -3,7 +3,7 @@ import { ValidatedRequest } from 'express-joi-validation';
 
 import { db } from '../models';
 import { GroupRequestBodySchema, GroupRequestParamsSchema } from '../api/middlewares/groupValidator';
-import GroupService from '../services/group';
+import GroupService from '../services/group.service';
 import { GroupRequestQueryType } from '../types/group';
 
 const groupService = new GroupService(db.Group);

@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 
 import usersRouter from './src/api/routes/user.routes';
 import { db } from './src/models';
-import { users } from './src/seeders/users';
+import { users } from './src/db/seeders/users';
 
 const app = express();
 const PORT = process.env.PORT || 3000;

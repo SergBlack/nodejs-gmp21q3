@@ -1,7 +1,7 @@
-import { Model } from 'sequelize';
+import { DataTypes, Model, Sequelize } from 'sequelize';
 import { IUser } from '../interfaces/user';
 
-module.exports = (sequelize: any, DataTypes: any) => {
+module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
   class User extends Model<IUser> implements IUser {
     id!: string;
 
@@ -26,30 +26,30 @@ module.exports = (sequelize: any, DataTypes: any) => {
   }
   User.init({
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: dataTypes.UUIDV4,
+      defaultValue: dataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
     },
     login: {
-      type: DataTypes.STRING(64),
+      type: dataTypes.STRING(64),
       allowNull: false,
       unique: true,
     },
     password: {
-      type: DataTypes.STRING(64),
+      type: dataTypes.STRING(64),
       allowNull: false,
     },
     age: {
-      type: DataTypes.INTEGER,
+      type: dataTypes.INTEGER,
     },
     isDeleted: {
-      type: DataTypes.BOOLEAN,
+      type: dataTypes.BOOLEAN,
       defaultValue: false,
     },
     createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
+      type: dataTypes.DATE,
+      defaultValue: dataTypes.NOW,
     },
   }, {
     sequelize,

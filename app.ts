@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 
 import usersRouter from './src/api/routes/user.routes';
 import groupsRouter from './src/api/routes/group.routes';
+import userGroupsRouter from './src/api/routes/userGroup.routes';
 import { db } from './src/models';
 
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,7 @@ const startServer = async () => {
   app.use(bodyParser.json());
   app.use('/users', usersRouter);
   app.use('/groups', groupsRouter);
+  app.use('/userGroup', userGroupsRouter);
 
   app.get('/', (req, res) => {
     res.send('Welcome to the users API!');
@@ -25,6 +27,7 @@ const startServer = async () => {
   app.listen(PORT, () => {
     console.log(`Server running on port: http://localhost:${PORT}`);
   }).on('error', err => {
+    console.error(err);
     process.exit(1);
   });
 };

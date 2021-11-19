@@ -1,12 +1,13 @@
+/* eslint-disable global-require,no-path-concat */
 import fs from 'fs';
 import path from 'path';
 import { DataTypes, Sequelize } from 'sequelize';
-import { users } from '../seeders/users';
-import { groups } from '../seeders/groups';
+import { users } from '../db/seeders/users';
+import { groups } from '../db/seeders/groups';
+import { userGroups } from '../db/seeders/userGroups';
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-// eslint-disable-next-line no-path-concat
 const config = require(__dirname + '/../config/config.js')[env];
 export const db: any = {};
 
@@ -22,7 +23,6 @@ fs
   .readdirSync(__dirname)
   .filter(file => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.ts'))
   .forEach(file => {
-    // eslint-disable-next-line global-require
     const model = require(path.join(__dirname, file))(sequelize, DataTypes);
     db[model.name] = model;
   });
@@ -39,6 +39,9 @@ const createEntities = () => {
   });
   groups.forEach(group => {
     db.Group.create(group);
+  });
+  userGroups.forEach(userGroup => {
+    db.UserGroup.create(userGroup);
   });
 };
 

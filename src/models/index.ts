@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { DataTypes, Sequelize } from 'sequelize';
+import { users } from '../seeders/users';
+import { groups } from '../seeders/groups';
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
@@ -30,6 +32,17 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
+
+const createEntities = () => {
+  users.forEach(user => {
+    db.User.create(user);
+  });
+  groups.forEach(group => {
+    db.Group.create(group);
+  });
+};
+
+// createEntities();
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

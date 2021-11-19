@@ -3,7 +3,7 @@ import { ValidatedRequest } from 'express-joi-validation';
 
 import { db } from '../models';
 import { UserRequestBodySchema, UserRequestParamsSchema } from '../api/middlewares/userValidator';
-import UserService from '../services/user.service';
+import UserService from '../services/user';
 import { UserRequestQueryType } from '../types/user';
 
 const userService = new UserService(db.User);

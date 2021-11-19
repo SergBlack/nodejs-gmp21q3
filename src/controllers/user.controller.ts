@@ -4,13 +4,13 @@ import { ValidatedRequest } from 'express-joi-validation';
 import { db } from '../models';
 import { UserRequestBodySchema, UserRequestParamsSchema } from '../api/middlewares/userValidator';
 import UserService from '../services/user';
-import { RequestQueryType } from '../types';
+import { UserRequestQueryType } from '../types/user';
 
 const userService = new UserService(db.User);
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
-    const allUsers = await userService.getAll(req.query as RequestQueryType);
+    const allUsers = await userService.getAll(req.query as UserRequestQueryType);
 
     return res.json(allUsers);
   } catch (e) {

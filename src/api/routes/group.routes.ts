@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 
 import {
   getGroups,
@@ -11,7 +11,7 @@ import {
   groupGetByIdSchema, groupSchema, groupValidator,
 } from '../middlewares/groupValidator';
 
-const router = express.Router();
+const router = Router();
 
 router.route('/')
   .get(getGroups)

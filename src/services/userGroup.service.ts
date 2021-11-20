@@ -1,5 +1,5 @@
-import { db } from '../models';
 import { UserGroupRequestBodyType } from '../types/userGroup';
+import sequelize from '../db/config';
 import { Logger } from '../utils/logger';
 
 export default class UserGroupService {
@@ -10,7 +10,7 @@ export default class UserGroupService {
   }
 
   async addUsersToGroup({ groupId, userIds }: UserGroupRequestBodyType) {
-    const transaction = await db.sequelize.transaction();
+    const transaction = await sequelize.transaction();
 
     try {
       // eslint-disable-next-line no-restricted-syntax

@@ -2,11 +2,13 @@ import { IUserGroup } from '../../interfaces/userGroup';
 
 export const userGroups: IUserGroup[] = [
   {
-    GroupId: 'f572d93f-a5bb-4212-9ac2-eacb5fe1b016',
-    UserId: 'f9d8e347-51cf-4462-88b2-cb2ea2da7911',
+    id: 1,
+    GroupId: '57dcf0fa-ba87-4006-b97e-10ff013c55a9',
+    UserId: '5d0bfead-c809-431e-ba67-1403f010bede',
   },
   {
-    GroupId: 'fe4a0f75-7a33-472b-b18a-29ebb0c0a919',
-    UserId: 'f584b816-e2f5-4153-8995-5e4ea976dc41',
+    id: 2,
+    GroupId: 'cbe3b188-3b8f-4e52-a123-8017c7f170a3',
+    UserId: '7e68770a-0dce-48c0-8b50-8fdcb6c61cff',
   },
 ];

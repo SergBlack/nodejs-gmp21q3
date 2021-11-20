@@ -1,5 +1,6 @@
 import { db } from '../models';
 import { UserGroupRequestBodyType } from '../types/userGroup';
+import { Logger } from '../utils/logger';
 
 export default class UserGroupService {
   private userGroupModel;
@@ -21,7 +22,7 @@ export default class UserGroupService {
         }, { transaction });
       }
 
-      console.log('success');
+      Logger.log('success');
       await transaction.commit();
     } catch (e) {
       await transaction.rollback();

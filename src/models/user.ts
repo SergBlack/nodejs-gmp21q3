@@ -15,17 +15,13 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
 
     isDeleted!: boolean;
 
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models: any) {
       User.belongsToMany(models.Group, {
         through: 'UserGroup',
       });
     }
   }
+
   User.init({
     id: {
       type: dataTypes.UUIDV4,

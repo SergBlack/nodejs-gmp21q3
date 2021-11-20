@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize';
 
 import { testPgConnection } from './pg-test';
+import { Logger } from '../utils/logger';
 
 const {
   DB_HOST, DB_NAME = '', DB_USERNAME = '', DB_PASSWORD,
@@ -14,9 +15,9 @@ const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
 const test = async () => {
   try {
     await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
+    Logger.log('Connection has been established successfully.');
   } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    Logger.error('Unable to connect to the database:', error);
   } finally {
     sequelize.close();
   }

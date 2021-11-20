@@ -1,5 +1,6 @@
 import { IUser } from '../interfaces/user';
 import { UserRequestBodyType, UserRequestQueryType } from '../types/user';
+import { Logger } from '../utils/logger';
 
 export default class UserService {
   private userModel;
@@ -35,7 +36,7 @@ export default class UserService {
 
       return data;
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
       throw e;
     }
   }
@@ -44,7 +45,7 @@ export default class UserService {
     try {
       return this.userModel.create(body);
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
       throw e;
     }
   }
@@ -58,7 +59,7 @@ export default class UserService {
         },
       });
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
       throw e;
     }
   }
@@ -73,7 +74,7 @@ export default class UserService {
 
       return user;
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
       throw e;
     }
   }
@@ -98,7 +99,7 @@ export default class UserService {
 
       return user;
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
       throw e;
     }
   }

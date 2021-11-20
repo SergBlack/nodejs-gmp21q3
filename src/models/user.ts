@@ -1,58 +1,63 @@
-import { DataTypes, Model, Sequelize } from 'sequelize';
+import {
+  DataTypes, Model, Optional,
+} from 'sequelize';
+import sequelize from '../db/config';
 import { IUser } from '../interfaces/user';
 
-module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
-  class User extends Model<IUser> implements IUser {
-    id!: string;
+export type IUserCreationAttributes = Optional<IUser, 'id'>
 
-    login!: string;
+class User extends Model<IUser, IUserCreationAttributes> implements IUser {
+  public id!: string;
 
-    password!: string;
+  public login!: string;
 
-    age!: number;
+  public password!: string;
 
-    createdAt!: string;
+  public age!: number;
 
-    isDeleted!: boolean;
+  public isDeleted!: boolean;
 
-    static associate(models: any) {
-      User.belongsToMany(models.Group, {
-        through: 'UserGroup',
-      });
-    }
+  public readonly createdAt!: Date;
+
+  public readonly updatedAt!: Date;
+
+  static associate(models: any) {
+    User.belongsToMany(models.Group, {
+      through: 'UserGroup',
+    });
   }
+}
 
-  User.init({
-    id: {
-      type: dataTypes.UUIDV4,
-      defaultValue: dataTypes.UUIDV4,
-      primaryKey: true,
-      allowNull: false,
-    },
-    login: {
-      type: dataTypes.STRING(64),
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: dataTypes.STRING(64),
-      allowNull: false,
-    },
-    age: {
-      type: dataTypes.INTEGER,
-    },
-    isDeleted: {
-      type: dataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    createdAt: {
-      type: dataTypes.DATE,
-      defaultValue: dataTypes.NOW,
-    },
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
+User.init({
+  id: {
+    type: DataTypes.UUIDV4,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true,
+    allowNull: false,
+  },
+  login: {
+    type: DataTypes.STRING(64),
+    allowNull: false,
+    unique: true,
+  },
+  password: {
+    type: DataTypes.STRING(64),
+    allowNull: false,
+  },
+  age: {
+    type: DataTypes.INTEGER,
+  },
+  isDeleted: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
+}, {
+  sequelize,
+  modelName: 'User',
+});
 
-  return User;
-};
+export default User;

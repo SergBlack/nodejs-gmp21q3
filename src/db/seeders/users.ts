@@ -8,7 +8,6 @@ export const users: IUser[] = [
     password: 'user1Password',
     age: 21,
     isDeleted: false,
-    createdAt: new Date().toISOString(),
   },
   {
     id: uuidv4(),
@@ -16,7 +15,6 @@ export const users: IUser[] = [
     password: 'user2Password',
     age: 45,
     isDeleted: false,
-    createdAt: new Date().toISOString(),
   },
   {
     id: uuidv4(),
@@ -24,7 +22,6 @@ export const users: IUser[] = [
     password: 'user3Password',
     age: 77,
     isDeleted: true,
-    createdAt: new Date().toISOString(),
   },
   {
     id: uuidv4(),
@@ -32,7 +29,6 @@ export const users: IUser[] = [
     password: 'ABCPassword',
     age: 21,
     isDeleted: false,
-    createdAt: new Date().toISOString(),
   },
   {
     id: uuidv4(),
@@ -40,7 +36,6 @@ export const users: IUser[] = [
     password: 'CDEPassword',
     age: 22,
     isDeleted: false,
-    createdAt: new Date().toISOString(),
   },
   {
     id: uuidv4(),
@@ -48,6 +43,5 @@ export const users: IUser[] = [
     password: 'XYZPassword',
     age: 23,
     isDeleted: false,
-    createdAt: new Date().toISOString(),
   },
 ];

@@ -1,10 +1,10 @@
 import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 
+import initDb from './src/db/init';
 import usersRouter from './src/api/routes/user.routes';
 import groupsRouter from './src/api/routes/group.routes';
 import userGroupsRouter from './src/api/routes/userGroup.routes';
-import { db } from './src/models';
 import { Logger } from './src/utils/logger';
 
 const PORT = process.env.PORT || 3000;
@@ -33,4 +33,4 @@ const startServer = async () => {
   });
 };
 
-db.sequelize.sync().then(startServer);
+initDb().then(startServer).catch(Logger.error);

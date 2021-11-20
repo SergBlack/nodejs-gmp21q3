@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { ValidatedRequest } from 'express-joi-validation';
 
-import { db } from '../models';
-import { UserRequestBodySchema, UserRequestParamsSchema } from '../api/middlewares/userValidator';
+import User from '../models/user';
 import UserService from '../services/user.service';
+import { UserRequestBodySchema, UserRequestParamsSchema } from '../api/middlewares/userValidator';
 import { UserRequestQueryType } from '../types/user';
 
-const userService = new UserService(db.User);
+const userService = new UserService(User);
 
 export const getUsers = async (req: Request, res: Response) => {
   try {

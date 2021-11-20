@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 
 import {
   getUsers,
@@ -11,7 +11,7 @@ import {
   userGetByIdSchema, userPostSchema, userUpdateSchema, userValidator,
 } from '../middlewares/userValidator';
 
-const router = express.Router();
+const router = Router();
 
 router.route('/')
   .get(getUsers)

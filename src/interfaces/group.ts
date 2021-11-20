@@ -4,5 +4,6 @@ export interface IGroup {
   id: string;
   name: string;
   permissions: Permission[];
-  createdAt: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

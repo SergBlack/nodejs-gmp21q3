@@ -1,11 +1,11 @@
 import { Response } from 'express';
 import { ValidatedRequest } from 'express-joi-validation';
 
-import { db } from '../models';
-import { UserGroupRequestBodySchema } from '../api/middlewares/userGroupValidator';
+import UserGroup from '../models/userGroup';
 import UserGroupService from '../services/userGroup.service';
+import { UserGroupRequestBodySchema } from '../api/middlewares/userGroupValidator';
 
-const userGroupService = new UserGroupService(db.UserGroup);
+const userGroupService = new UserGroupService(UserGroup);
 
 export const addUsersToGroup = async (
   req: ValidatedRequest<UserGroupRequestBodySchema>,

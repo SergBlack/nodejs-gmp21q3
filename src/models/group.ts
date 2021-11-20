@@ -12,17 +12,13 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
 
     createdAt!: string;
 
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models: any) {
       Group.belongsToMany(models.User, {
         through: 'UserGroup',
       });
     }
   }
+
   Group.init({
     id: {
       type: dataTypes.UUID,

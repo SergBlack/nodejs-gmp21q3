@@ -6,16 +6,8 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     GroupId!: string;
 
     UserId!: string;
-
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    /* static associate(models: any) {
-      // define association here
-    } */
   }
+
   UserGroup.init({
     GroupId: {
       type: dataTypes.UUID,
@@ -39,5 +31,6 @@ module.exports = (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     sequelize,
     modelName: 'UserGroup',
   });
+
   return UserGroup;
 };

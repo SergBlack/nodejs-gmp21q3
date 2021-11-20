@@ -1,4 +1,5 @@
 import { Client } from 'pg';
+import { Logger } from '../utils/logger';
 
 const {
   DB_HOST, DB_PORT, DB_NAME, DB_USERNAME, DB_PASSWORD,
@@ -17,13 +18,13 @@ export const testPgConnection = () => {
 
   client.query('SELECT * FROM user')
     .then(res => {
-      console.log({ res });
-      console.table(res.fields);
-      console.table(res.rows);
+      Logger.log({ res });
+      Logger.table(res.fields);
+      Logger.table(res.rows);
 
-      console.log('Connection has been established successfully.');
+      Logger.log('Connection has been established successfully.');
     }).catch(err => {
-      console.log('Unable to connect to the database:', err);
+      Logger.error('Unable to connect to the database.', err);
       throw err;
     })
     .finally(() => {

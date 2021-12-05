@@ -5,7 +5,7 @@ import initDb from './src/db/init';
 import usersRouter from './src/api/routes/user.routes';
 import groupsRouter from './src/api/routes/group.routes';
 import userGroupsRouter from './src/api/routes/userGroup.routes';
-import { Logger } from './src/utils/logger';
+import { Logger } from './src/common/utils/logger';
 
 const PORT = process.env.PORT || 3000;
 

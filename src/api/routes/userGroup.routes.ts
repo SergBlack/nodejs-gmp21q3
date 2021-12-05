@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { addUsersToGroup } from '../../controllers/userGroup.controller';
+import { addUsersToGroup } from '../../models/userGroup/userGroup.controller';
 import { userGroupSchema, userGroupValidator } from '../middlewares/userGroupValidator';
 
 const router = Router();

@@ -1,6 +1,6 @@
-import Group from './group';
-import User from './user';
-import UserGroup from './userGroup';
+import Group from './group/group.entity';
+import User from './user/user.entity';
+import UserGroup from './userGroup/userGroup.entity';
 
 export {
   Group,

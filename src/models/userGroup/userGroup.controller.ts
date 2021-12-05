@@ -1,9 +1,9 @@
 import { Response } from 'express';
 import { ValidatedRequest } from 'express-joi-validation';
 
-import UserGroup from '../models/userGroup';
-import UserGroupService from '../services/userGroup.service';
-import { UserGroupRequestBodySchema } from '../api/middlewares/userGroupValidator';
+import UserGroup from './userGroup.entity';
+import UserGroupService from './userGroup.service';
+import { UserGroupRequestBodySchema } from '../../api/middlewares/userGroupValidator';
 
 const userGroupService = new UserGroupService(UserGroup);
 

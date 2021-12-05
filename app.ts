@@ -6,7 +6,7 @@ import initDb from '@db/init';
 import usersRouter from '@api/routes/user.routes';
 import groupsRouter from '@api/routes/group.routes';
 import userGroupsRouter from '@api/routes/userGroup.routes';
-import { Logger } from '@common/utils/logger';
+import { logger } from '@common/utils/';
 
 const PORT = process.env.PORT || 3000;
 
@@ -27,11 +27,11 @@ const startServer = async () => {
   });
 
   app.listen(PORT, () => {
-    Logger.log(`Server running on port: http://localhost:${PORT}`);
+    logger.info(`Server running on port: http://localhost:${PORT}`);
   }).on('error', (err: Error) => {
-    Logger.error(err);
+    logger.error(err);
     process.exit(1);
   });
 };
 
-initDb().then(startServer).catch(Logger.error);
+initDb().then(startServer).catch(logger.error);

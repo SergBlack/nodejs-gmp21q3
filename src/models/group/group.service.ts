@@ -1,6 +1,6 @@
 import { IGroup } from './group.interface';
 import { GroupRequestBodyType, GroupRequestQueryType } from '@common/types/group';
-import { Logger } from '@common/utils/logger';
+import { logger } from '@common/utils';
 
 export default class GroupService {
   private groupModel;
@@ -31,7 +31,7 @@ export default class GroupService {
 
       return data;
     } catch (e) {
-      Logger.error(e);
+      logger.error(e);
       throw e;
     }
   }
@@ -40,7 +40,7 @@ export default class GroupService {
     try {
       return this.groupModel.create(body);
     } catch (e) {
-      Logger.error(e);
+      logger.error(e);
       throw e;
     }
   }
@@ -51,7 +51,7 @@ export default class GroupService {
         where: { id: groupId },
       });
     } catch (e) {
-      Logger.error(e);
+      logger.error(e);
       throw e;
     }
   }
@@ -64,7 +64,7 @@ export default class GroupService {
 
       return result;
     } catch (e) {
-      Logger.error(e);
+      logger.error(e);
       throw e;
     }
   }
@@ -83,7 +83,7 @@ export default class GroupService {
     try {
       const group = await this.findById(groupId);
 
-      Logger.log(group);
+      logger.log(group);
 
       if (group) {
         group.update(props);
@@ -91,7 +91,7 @@ export default class GroupService {
 
       return group;
     } catch (e) {
-      Logger.error(e);
+      logger.error(e);
       throw e;
     }
   }

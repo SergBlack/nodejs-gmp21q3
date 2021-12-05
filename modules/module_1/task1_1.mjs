@@ -1,4 +1,4 @@
-import { Logger } from '../../src/utils/logger';
+import { Logger } from '../../src/common/utils/logger';
 
 Logger.log('Application is running');
 

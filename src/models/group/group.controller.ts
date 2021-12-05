@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { ValidatedRequest } from 'express-joi-validation';
 
-import Group from '../models/group';
-import GroupService from '../services/group.service';
-import { GroupRequestBodySchema, GroupRequestParamsSchema } from '../api/middlewares/groupValidator';
-import { GroupRequestQueryType } from '../types/group';
+import Group from './group.entity';
+import GroupService from './group.service';
+import { GroupRequestBodySchema, GroupRequestParamsSchema } from '../../api/middlewares/groupValidator';
+import { GroupRequestQueryType } from '../../common/types/group';
 
 const groupService = new GroupService(Group);
 

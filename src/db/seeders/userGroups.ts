@@ -1,4 +1,4 @@
-import { IUserGroup } from '../../interfaces/userGroup';
+import { IUserGroup } from '../../models/userGroup/userGroup.interface';
 
 export const userGroups: IUserGroup[] = [
   {

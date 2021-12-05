@@ -1,7 +1,7 @@
 import fs from 'fs';
 import readline from 'readline';
 import csv from 'csvtojson';
-import { Logger } from '../../src/utils/logger';
+import { Logger } from '../../src/common/utils/logger';
 
 const sourceFilePath = './csv/hw1-ex1.csv';
 const destFile1Path = './modules/module_1/hw1-ex1_1.txt';

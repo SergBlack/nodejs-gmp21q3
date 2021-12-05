@@ -1,8 +1,8 @@
 import {
   DataTypes, Model, Optional,
 } from 'sequelize';
-import sequelize from '../db/config';
-import { IUser } from '../interfaces/user';
+import sequelize from '../../db/config';
+import { IUser } from './user.interface';
 
 export type IUserCreationAttributes = Optional<IUser, 'id'>
 

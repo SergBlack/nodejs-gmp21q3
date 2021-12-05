@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { ContainerTypes, createValidator, ValidatedRequestSchema } from 'express-joi-validation';
-import { Permission } from '../../types/group';
+import { Permission } from '../../common/types/group';
 
 export const groupValidator = createValidator();
 

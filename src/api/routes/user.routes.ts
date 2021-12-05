@@ -6,7 +6,7 @@ import {
   getUser,
   deleteUser,
   updateUser,
-} from '../../controllers/user.controller';
+} from '../../models/user/user.controller';
 import {
   userGetByIdSchema, userPostSchema, userUpdateSchema, userValidator,
 } from '../middlewares/userValidator';

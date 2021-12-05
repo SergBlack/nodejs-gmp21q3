@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../db/config';
-import { IUserGroup } from '../interfaces/userGroup';
+import { IUserGroup } from '../common/interfaces/userGroup';
 
 type IUserGroupCreationAttributes = Optional<IUserGroup, 'id'>
 

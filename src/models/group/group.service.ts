@@ -1,6 +1,6 @@
-import { IGroup } from '../interfaces/group';
+import { IGroup } from '../common/interfaces/group';
 import { GroupRequestBodyType, GroupRequestQueryType } from '../types/group';
-import { Logger } from '../utils/logger';
+import { Logger } from '../common/utils/logger';
 
 export default class GroupService {
   private groupModel;

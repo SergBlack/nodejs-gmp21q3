@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../db/config';
-import { IGroup } from '../interfaces/group';
+import { IGroup } from '../common/interfaces/group';
 import { Permission } from '../types/group';
 
 type IGroupCreationAttributes = Optional<IGroup, 'id'>

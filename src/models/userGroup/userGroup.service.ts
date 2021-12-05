@@ -1,6 +1,6 @@
 import { UserGroupRequestBodyType } from '../types/userGroup';
 import sequelize from '../db/config';
-import { Logger } from '../utils/logger';
+import { Logger } from '../common/utils/logger';
 
 export default class UserGroupService {
   private userGroupModel;

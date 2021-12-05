@@ -2,7 +2,7 @@ import {
   DataTypes, Model, Optional,
 } from 'sequelize';
 import sequelize from '../db/config';
-import { IUser } from '../interfaces/user';
+import { IUser } from '../common/interfaces/user';
 
 export type IUserCreationAttributes = Optional<IUser, 'id'>
 

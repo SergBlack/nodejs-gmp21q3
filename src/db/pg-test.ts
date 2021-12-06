@@ -1,5 +1,5 @@
 import { Client } from 'pg';
-import { Logger } from '../common/utils/logger';
+import { Logger } from '@common/utils/logger';
 
 const {
   DB_HOST, DB_PORT, DB_NAME, DB_USERNAME, DB_PASSWORD,

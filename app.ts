@@ -1,11 +1,11 @@
 import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 
-import initDb from './src/db/init';
-import usersRouter from './src/api/routes/user.routes';
-import groupsRouter from './src/api/routes/group.routes';
-import userGroupsRouter from './src/api/routes/userGroup.routes';
-import { Logger } from './src/common/utils/logger';
+import initDb from '@db/init';
+import usersRouter from '@api/routes/user.routes';
+import groupsRouter from '@api/routes/group.routes';
+import userGroupsRouter from '@api/routes/userGroup.routes';
+import { Logger } from '@common/utils/logger';
 
 const PORT = process.env.PORT || 3000;
 

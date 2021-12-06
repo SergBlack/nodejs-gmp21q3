@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IUser } from '../../models/user/user.interface';
+import { IUser } from '@models/user/user.interface';
 
 export const users: IUser[] = [
   {

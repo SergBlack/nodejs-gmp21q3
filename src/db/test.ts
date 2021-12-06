@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 
 import { testPgConnection } from './pg-test';
-import { Logger } from '../common/utils/logger';
+import { Logger } from '@common/utils/logger';
 
 const {
   DB_HOST, DB_NAME = '', DB_USERNAME = '', DB_PASSWORD,

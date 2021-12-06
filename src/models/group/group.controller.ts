@@ -3,8 +3,8 @@ import { ValidatedRequest } from 'express-joi-validation';
 
 import Group from './group.entity';
 import GroupService from './group.service';
-import { GroupRequestBodySchema, GroupRequestParamsSchema } from '../../api/middlewares/groupValidator';
-import { GroupRequestQueryType } from '../../common/types/group';
+import { GroupRequestBodySchema, GroupRequestParamsSchema } from '@api/middlewares/groupValidator';
+import { GroupRequestQueryType } from '@common/types/group';
 
 const groupService = new GroupService(Group);
 

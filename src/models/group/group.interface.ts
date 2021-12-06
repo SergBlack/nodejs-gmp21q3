@@ -1,4 +1,4 @@
-import { Permission } from '../../common/types/group';
+import { Permission } from '@common/types/group';
 
 export interface IGroup {
   id: string;

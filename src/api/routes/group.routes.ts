@@ -6,7 +6,7 @@ import {
   getGroup,
   deleteGroup,
   updateGroup,
-} from '../../models/group/group.controller';
+} from '@models/group/group.controller';
 import {
   groupGetByIdSchema, groupSchema, groupValidator,
 } from '../middlewares/groupValidator';

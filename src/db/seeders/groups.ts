@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IGroup } from '../../models/group/group.interface';
+import { IGroup } from '@models/group/group.interface';
 
 export const groups: IGroup[] = [
   {

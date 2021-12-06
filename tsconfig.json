@@ -13,6 +13,13 @@
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "declaration": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@api/*": ["api/*"],
+      "@common/*": ["common/*"],
+      "@db/*": ["db/*"],
+      "@models/*": ["models/*"]
+    }
   }
 }

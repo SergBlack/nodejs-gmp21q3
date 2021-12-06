@@ -1,6 +1,6 @@
 import { IUser } from './user.interface';
-import { UserRequestBodyType, UserRequestQueryType } from '../../common/types/user';
-import { Logger } from '../../common/utils/logger';
+import { UserRequestBodyType, UserRequestQueryType } from '@common/types/user';
+import { Logger } from '@common/utils/logger';
 
 export default class UserService {
   private userModel;

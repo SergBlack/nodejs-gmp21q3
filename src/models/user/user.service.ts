@@ -1,6 +1,5 @@
 import { IUser } from './user.interface';
 import { UserRequestBodyType, UserRequestQueryType } from '@common/types/user';
-import { logger } from '@common/utils';
 
 export default class UserService {
   private userModel;
@@ -26,57 +25,37 @@ export default class UserService {
       queries = { ...queries, order: [orderGroup] };
     }
 
-    try {
-      const data: IUser[] = this.userModel.findAll({
-        where: {
-          isDeleted: false,
-        },
-        ...queries,
-      });
+    const data: IUser[] = this.userModel.findAll({
+      where: {
+        isDeleted: false,
+      },
+      ...queries,
+    });
 
-      return data;
-    } catch (e) {
-      logger.error(e);
-      throw e;
-    }
+    return data;
   }
 
   create(body: UserRequestBodyType) {
-    try {
-      return this.userModel.create(body);
-    } catch (e) {
-      logger.error(e);
-      throw e;
-    }
+    return this.userModel.create(body);
   }
 
   findById(userId: string) {
-    try {
-      return this.userModel.findOne({
-        where: {
-          id: userId,
-          isDeleted: false,
-        },
-      });
-    } catch (e) {
-      logger.error(e);
-      throw e;
-    }
+    return this.userModel.findOne({
+      where: {
+        id: userId,
+        isDeleted: false,
+      },
+    });
   }
 
-  async delete(userId: string) {
-    try {
-      const user = await this.findById(userId);
+  delete(userId: string) {
+    const user = this.findById(userId);
 
-      if (user) {
-        user.update({ isDeleted: true });
-      }
-
-      return user;
-    } catch (e) {
-      logger.error(e);
-      throw e;
+    if (user) {
+      user.update({ isDeleted: true });
     }
+
+    return user;
   }
 
   async update(userId: string, { password, age }: Partial<UserRequestBodyType>) {
@@ -90,17 +69,12 @@ export default class UserService {
       props = { ...props, age };
     }
 
-    try {
-      const user = await this.findById(userId);
+    const user = await this.findById(userId);
 
-      if (user) {
-        user.update(props);
-      }
-
-      return user;
-    } catch (e) {
-      logger.error(e);
-      throw e;
+    if (user) {
+      user.update(props);
     }
+
+    return user;
   }
 }

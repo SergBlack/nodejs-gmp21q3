@@ -5,8 +5,8 @@ const {
 } = format;
 
 const logFormat = printf(({
-  level, message, timestamp: ts, stack,
-}) => `${ts} ${level}: ${stack || message}`);
+  level, message, timestamp: ts, stack, meta,
+}) => `${ts} ${level}: ${stack || message} ${meta ? JSON.stringify(meta) : ''}`);
 
 export const logger = createLogger({
   format: combine(
@@ -15,5 +15,6 @@ export const logger = createLogger({
     errors({ stack: true }),
     logFormat,
   ),
+  // defaultMeta: { service: 'user-service' },
   transports: [new transports.Console()],
 });

@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
+import 'module-alias/register';
 
 import initDb from '@db/init';
 import usersRouter from '@api/routes/user.routes';

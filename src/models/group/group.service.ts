@@ -1,6 +1,5 @@
 import { IGroup } from './group.interface';
 import { GroupRequestBodyType, GroupRequestQueryType } from '@common/types/group';
-import { Logger } from '@common/utils/logger';
 
 export default class GroupService {
   private groupModel;
@@ -26,47 +25,25 @@ export default class GroupService {
       queries = { ...queries, order: [orderGroup] };
     }
 
-    try {
-      const data: IGroup[] = this.groupModel.findAll(queries);
+    const data: IGroup[] = this.groupModel.findAll(queries);
 
-      return data;
-    } catch (e) {
-      Logger.error(e);
-      throw e;
-    }
+    return data;
   }
 
   create(body: GroupRequestBodyType) {
-    try {
-      return this.groupModel.create(body);
-    } catch (e) {
-      Logger.error(e);
-      throw e;
-    }
+    return this.groupModel.create(body);
   }
 
   findById(groupId: string) {
-    try {
-      return this.groupModel.findOne({
-        where: { id: groupId },
-      });
-    } catch (e) {
-      Logger.error(e);
-      throw e;
-    }
+    return this.groupModel.findOne({
+      where: { id: groupId },
+    });
   }
 
   async delete(groupId: string) {
-    try {
-      const result = await this.groupModel.destroy({
-        where: { id: groupId },
-      });
-
-      return result;
-    } catch (e) {
-      Logger.error(e);
-      throw e;
-    }
+    return this.groupModel.destroy({
+      where: { id: groupId },
+    });
   }
 
   async update(groupId: string, { name, permissions }: Partial<GroupRequestBodyType>) {
@@ -80,19 +57,12 @@ export default class GroupService {
       props = { ...props, permissions };
     }
 
-    try {
-      const group = await this.findById(groupId);
+    const group = await this.findById(groupId);
 
-      Logger.log(group);
-
-      if (group) {
-        group.update(props);
-      }
-
-      return group;
-    } catch (e) {
-      Logger.error(e);
-      throw e;
+    if (group) {
+      group.update(props);
     }
+
+    return group;
   }
 }

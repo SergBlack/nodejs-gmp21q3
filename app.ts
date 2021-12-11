@@ -1,37 +1,35 @@
-import express, { Application, Request, Response } from 'express';
+import express, {
+  Application, NextFunction, Request, Response,
+} from 'express';
 import bodyParser from 'body-parser';
 import 'module-alias/register';
 
-import initDb from '@db/init';
 import usersRouter from '@api/routes/user.routes';
 import groupsRouter from '@api/routes/group.routes';
 import userGroupsRouter from '@api/routes/userGroup.routes';
-import { Logger } from '@common/utils/logger';
+import { logger } from '@common/utils/';
+import { requestLogger } from '@api/middlewares/requestLogger';
+import { apiErrorMiddleware } from '@api/middlewares/apiErrorMiddleware';
+import { ApiError } from '@api/errors/apiError';
 
-const PORT = process.env.PORT || 3000;
+const app: Application = express();
 
-const startServer = async () => {
-  const app: Application = express();
+app.use(bodyParser.json());
 
-  app.use(bodyParser.json());
-  app.use('/users', usersRouter);
-  app.use('/groups', groupsRouter);
-  app.use('/userGroup', userGroupsRouter);
+app.use(requestLogger);
+app.use('/users', usersRouter);
+app.use('/groups', groupsRouter);
+app.use('/userGroup', userGroupsRouter);
 
-  app.get('/', (req: Request, res: Response) => {
-    res.send('Welcome to the users API!');
-  });
+app.get('/', (req: Request, res: Response) => {
+  logger.info('User requested main page');
+  res.send('Welcome to the users API!');
+});
 
-  app.get('*', (req, res) => {
-    res.status(404).json({ error: 'No such route exists!' });
-  });
+app.use('*', (req: Request, res: Response, next: NextFunction) => {
+  next(ApiError.sendNotFound());
+});
 
-  app.listen(PORT, () => {
-    Logger.log(`Server running on port: http://localhost:${PORT}`);
-  }).on('error', (err: Error) => {
-    Logger.error(err);
-    process.exit(1);
-  });
-};
+app.use(apiErrorMiddleware);
 
-initDb().then(startServer).catch(Logger.error);
+export default app;

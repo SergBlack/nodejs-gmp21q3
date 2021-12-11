@@ -1,4 +1,6 @@
-import { DataTypes, Model, Optional } from 'sequelize';
+import {
+  DataTypes, Model, ModelType, Optional,
+} from 'sequelize';
 import sequelize from '@db/config';
 import { Permission } from '@common/types/group';
 import { IGroup } from './group.interface';

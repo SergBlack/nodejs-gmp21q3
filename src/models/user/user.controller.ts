@@ -1,77 +1,103 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { ValidatedRequest } from 'express-joi-validation';
 
 import User from './user.entity';
 import UserService from './user.service';
 import { UserRequestBodySchema, UserRequestParamsSchema } from '@api/middlewares/userValidator';
+import { ApiError } from '@api/errors/apiError';
 import { UserRequestQueryType } from '@common/types/user';
+import { logger } from '@common/utils';
 
 const userService = new UserService(User);
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const allUsers = await userService.getAll(req.query as UserRequestQueryType);
 
-    return res.json(allUsers);
+    res.json(allUsers);
   } catch (e) {
-    return res.status(400).json({ error: 'Bad request' });
+    logger.error(e);
+    next(ApiError.sendBadRequest());
   }
 };
 
-export const createUser = async (req: ValidatedRequest<UserRequestBodySchema>, res: Response) => {
+export const createUser = async (
+  req: ValidatedRequest<UserRequestBodySchema>,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const newUser = await userService.create(req.body);
 
-    return res.json(newUser);
+    res.json(newUser);
   } catch (e) {
-    return res.status(400).json({ error: 'User already exists' });
+    logger.error(e);
+    next(ApiError.sendBadRequest('User already exists'));
   }
 };
 
-export const getUser = async (req: ValidatedRequest<UserRequestParamsSchema>, res: Response) => {
+export const getUser = async (
+  req: ValidatedRequest<UserRequestParamsSchema>,
+  res: Response,
+  next: NextFunction,
+) => {
   const { id } = req.params;
 
   try {
     const user = await userService.findById(id);
 
-    if (user) {
-      return res.json(user);
+    if (!user) {
+      next(ApiError.sendBadRequest('User was not found in the database'));
+      return;
     }
 
-    return res.status(400).json({ error: 'User was not found in the database' });
+    res.json(user);
   } catch (e) {
-    return res.status(500).json({ error: 'Server error' });
+    logger.error(e);
+    next(e);
   }
 };
 
-export const updateUser = async (req: ValidatedRequest<UserRequestBodySchema>, res: Response) => {
+export const updateUser = async (
+  req: ValidatedRequest<UserRequestBodySchema>,
+  res: Response,
+  next: NextFunction,
+) => {
   const { id } = req.params;
 
   try {
     const user = await userService.update(id, req.body);
 
-    if (user) {
-      return res.json(user);
+    if (!user) {
+      next(ApiError.sendBadRequest('User was not found in the database'));
+      return;
     }
 
-    return res.status(400).json({ error: 'User was not found in the database' });
+    res.json(user);
   } catch (e) {
-    return res.status(500).json({ error: 'Server error' });
+    logger.error(e);
+    next(e);
   }
 };
 
-export const deleteUser = async (req: ValidatedRequest<UserRequestParamsSchema>, res: Response) => {
+export const deleteUser = async (
+  req: ValidatedRequest<UserRequestParamsSchema>,
+  res: Response,
+  next: NextFunction,
+) => {
   const { id } = req.params;
 
   try {
     const user = await userService.delete(id);
 
-    if (user) {
-      return res.json({ message: 'User deleted successfully' });
+    if (!user) {
+      next(ApiError.sendBadRequest('User was not found in the database'));
+      return;
     }
 
-    return res.status(400).json({ error: 'User was not found in the database' });
+    res.json({ message: 'User deleted successfully' });
   } catch (e) {
-    return res.status(500).json({ error: 'Server error' });
+    logger.error(e);
+    next(e);
   }
 };

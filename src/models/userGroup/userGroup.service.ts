@@ -1,6 +1,6 @@
 import sequelize from '@db/config';
 import { UserGroupRequestBodyType } from '@common/types/userGroup';
-import { Logger } from '@common/utils/logger';
+import { logger } from '@common/utils';
 
 export default class UserGroupService {
   private userGroupModel;
@@ -22,7 +22,7 @@ export default class UserGroupService {
         }, { transaction });
       }
 
-      Logger.log('success');
+      logger.info('success');
       await transaction.commit();
     } catch (e) {
       await transaction.rollback();

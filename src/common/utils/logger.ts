@@ -1,15 +1,20 @@
-/* eslint-disable no-console */
+import { createLogger, format, transports } from 'winston';
 
-export class Logger {
-  static log(message: string | object) {
-    console.log(message);
-  }
+const {
+  combine, errors, printf, timestamp, colorize,
+} = format;
 
-  static table(data: unknown[]) {
-    console.table(data);
-  }
+const logFormat = printf(({
+  level, message, timestamp: ts, stack, meta,
+}) => `${ts} ${level}: ${stack || message} ${meta ? JSON.stringify(meta) : ''}`);
 
-  static error(err: unknown, ...rest: unknown[]) {
-    console.error(err, ...rest);
-  }
-}
+export const logger = createLogger({
+  format: combine(
+    colorize(),
+    timestamp({ format: 'DD-MM-YYYY HH:mm:ss' }),
+    errors({ stack: true }),
+    logFormat,
+  ),
+  // defaultMeta: { service: 'user-service' },
+  transports: [new transports.Console()],
+});

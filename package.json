@@ -2,14 +2,14 @@
   "name": "nodejs-gmp2021q3",
   "version": "1.0.0",
   "description": "NodeJS application",
-  "main": "app.ts",
+  "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts,.js,.mjs --fix",
     "task1_1": "nodemon modules/module_1/task1_1.mjs",
     "task1_2": "nodemon modules/module_1/task1_2.mjs",
     "start": "npm run build && node build/index.js",
-    "start:dev": "nodemon -r dotenv/config --ext js,ts --watch . --ignore build/ app.ts ",
+    "start:dev": "nodemon -r dotenv/config --ext js,ts --watch . --ignore build/ server.ts ",
     "build-compile": "rimraf ./build && npx babel . --extensions .ts,.js --out-dir build --ignore \"node_modules\"",
     "build-types": "tsc",
     "build": "concurrently \"npm:build-types\" \"npm:build-compile\"",
@@ -61,7 +61,8 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.9.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
   },
   "_moduleAliases": {
     "@api": "src/api",

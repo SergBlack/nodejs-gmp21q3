@@ -1,5 +1,5 @@
 import {
-  DataTypes, Model, ModelType, Optional,
+  DataTypes, Model, Optional,
 } from 'sequelize';
 import sequelize from '@db/config';
 import { Permission } from '@common/types/group';
@@ -17,18 +17,12 @@ class Group extends Model<IGroup, IGroupCreationAttributes> implements IGroup {
   public readonly createdAt!: Date;
 
   public readonly updatedAt!: Date;
-
-  static associate(models: any) {
-    Group.belongsToMany(models.User, {
-      through: 'UserGroup',
-    });
-  }
 }
 
 Group.init({
   id: {
-    type: DataTypes.UUIDV4,
-    defaultValue: DataTypes.UUIDV4,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUID,
     primaryKey: true,
     allowNull: false,
   },

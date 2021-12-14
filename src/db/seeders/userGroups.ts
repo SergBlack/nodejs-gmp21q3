@@ -3,12 +3,12 @@ import { IUserGroup } from '@models/userGroup/userGroup.interface';
 export const userGroups: IUserGroup[] = [
   {
     id: 1,
-    GroupId: '57dcf0fa-ba87-4006-b97e-10ff013c55a9',
-    UserId: '5d0bfead-c809-431e-ba67-1403f010bede',
+    GroupId: '9cab7b44-6a1e-4946-a294-1c6e487bc17f',
+    UserId: '02cd3548-274b-4ef1-a281-ad8c9ff449cc',
   },
   {
     id: 2,
-    GroupId: 'cbe3b188-3b8f-4e52-a123-8017c7f170a3',
-    UserId: '7e68770a-0dce-48c0-8b50-8fdcb6c61cff',
+    GroupId: '37f86650-6dce-4f50-950a-3f46c5073307',
+    UserId: '75cad8d6-f03d-4420-bb24-4816c6fa51e1',
   },
 ];

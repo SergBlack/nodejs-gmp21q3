@@ -20,18 +20,12 @@ class User extends Model<IUser, IUserCreationAttributes> implements IUser {
   public readonly createdAt!: Date;
 
   public readonly updatedAt!: Date;
-
-  static associate(models: any) {
-    User.belongsToMany(models.Group, {
-      through: 'UserGroup',
-    });
-  }
 }
 
 User.init({
   id: {
-    type: DataTypes.UUIDV4,
-    defaultValue: DataTypes.UUIDV4,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUID,
     primaryKey: true,
     allowNull: false,
   },

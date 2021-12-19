@@ -1,6 +1,7 @@
 import express, {
   Application, NextFunction, Request, Response,
 } from 'express';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import 'module-alias/register';
 
@@ -16,7 +17,13 @@ import { ApiError } from '@api/errors/apiError';
 
 const app: Application = express();
 
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+};
+
 app.use(bodyParser.json());
+app.use(cors(corsOptions));
 
 app.use(requestLogger);
 app.use('/auth', authRouter);

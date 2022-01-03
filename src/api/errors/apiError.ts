@@ -16,6 +16,14 @@ export class ApiError extends Error {
     return new ApiError(400, 'Bad request', description);
   }
 
+  static sendUnauthorized(description?: string) {
+    return new ApiError(401, 'Unauthorized', description);
+  }
+
+  static sendForbidden(description?: string) {
+    return new ApiError(403, 'Forbidden', description);
+  }
+
   static sendNotFound() {
     return new ApiError(404, 'Not found');
   }

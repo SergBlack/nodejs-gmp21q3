@@ -10,16 +10,22 @@ import {
 import {
   userGetByIdSchema, userPostSchema, userUpdateSchema, userValidator,
 } from '../middlewares/userValidator';
+import { checkToken } from '@api/middlewares/checkToken';
 
 const router = Router();
 
 router.route('/')
   .get(getUsers)
-  .post(userValidator.body(userPostSchema), createUser);
+  .post(checkToken, userValidator.body(userPostSchema), createUser);
 
 router.route('/:id')
   .get(userValidator.params(userGetByIdSchema), getUser)
-  .put(userValidator.params(userGetByIdSchema), userValidator.body(userUpdateSchema), updateUser)
-  .delete(userValidator.params(userGetByIdSchema), deleteUser);
+  .put(
+    checkToken,
+    userValidator.params(userGetByIdSchema),
+    userValidator.body(userUpdateSchema),
+    updateUser,
+  )
+  .delete(checkToken, userValidator.params(userGetByIdSchema), deleteUser);
 
 export default router;

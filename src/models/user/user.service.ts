@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import { IUser } from './user.interface';
 import { UserRequestBodyType, UserRequestQueryType } from '@common/types/user';
 
@@ -36,7 +38,7 @@ export default class UserService {
   }
 
   create(body: UserRequestBodyType) {
-    return this.userModel.create(body);
+    return this.userModel.create({ id: uuidv4(), ...body });
   }
 
   findById(userId: string) {

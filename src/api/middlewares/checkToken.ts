@@ -3,18 +3,21 @@ import jwt from 'jsonwebtoken';
 
 import { ApiError } from '@api/errors/apiError';
 
+const config = require('../../../config.js');
+
 export const checkToken = (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers['x-access-token'] as string;
+  const token = req.headers.authorization?.split(' ')[1];
+  const jwtSecret = config.jwtSecret as string;
 
   if (token) {
-    jwt.verify(token, 'jwtSecret', (err, decoded) => {
+    jwt.verify(token, jwtSecret, (err) => {
       if (err) {
-        res.json({ success: false, message: 'Failed to authenticate token.' });
+        res.json({ success: false, message: 'Failed to authenticate' });
       } else {
         next();
       }
     });
   } else {
-    next(ApiError.sendUnauthorized('No token provided.'));
+    next(ApiError.sendUnauthorized('User is not authorized.'));
   }
 };

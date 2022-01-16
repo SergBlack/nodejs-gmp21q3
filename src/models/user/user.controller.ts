@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { ValidatedRequest } from 'express-joi-validation';
+import bcrypt from 'bcryptjs';
 
 import User from './user.entity';
 import UserService from './user.service';
@@ -15,9 +16,9 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction) 
     const allUsers = await userService.getAll(req.query as UserRequestQueryType);
 
     res.json(allUsers);
-  } catch (e) {
+  } catch (e: any) {
     logger.error(e);
-    next(ApiError.sendBadRequest());
+    next(ApiError.sendBadRequest(e.message));
   }
 };
 
@@ -27,12 +28,16 @@ export const createUser = async (
   next: NextFunction,
 ) => {
   try {
-    const newUser = await userService.create(req.body);
+    const { login, password, age } = req.body;
+    const saltRounds = 10;
+    const hashPassword = bcrypt.hashSync(password, saltRounds);
+
+    const newUser = await userService.create({ login, password: hashPassword, age });
 
     res.json(newUser);
-  } catch (e) {
+  } catch (e: any) {
     logger.error(e);
-    next(ApiError.sendBadRequest('User already exists'));
+    next(ApiError.sendBadRequest(e.message));
   }
 };
 

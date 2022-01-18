@@ -10,16 +10,22 @@ import {
 import {
   groupGetByIdSchema, groupSchema, groupValidator,
 } from '../middlewares/groupValidator';
+import { checkToken } from '@api/middlewares/checkToken';
 
 const router = Router();
 
 router.route('/')
   .get(getGroups)
-  .post(groupValidator.body(groupSchema), createGroup);
+  .post(checkToken, groupValidator.body(groupSchema), createGroup);
 
 router.route('/:id')
   .get(groupValidator.params(groupGetByIdSchema), getGroup)
-  .put(groupValidator.params(groupGetByIdSchema), groupValidator.body(groupSchema), updateGroup)
-  .delete(groupValidator.params(groupGetByIdSchema), deleteGroup);
+  .put(
+    checkToken,
+    groupValidator.params(groupGetByIdSchema),
+    groupValidator.body(groupSchema),
+    updateGroup,
+  )
+  .delete(checkToken, groupValidator.params(groupGetByIdSchema), deleteGroup);
 
 export default router;
